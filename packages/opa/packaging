@@ -1,0 +1,4 @@
+set -e
+
+cp -a opa-0.8.1 "${BOSH_INSTALL_TARGET:?}/opa"
+chmod a+x "${BOSH_INSTALL_TARGET:?}/opa"

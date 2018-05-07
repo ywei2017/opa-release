@@ -1,0 +1,10 @@
+---
+name: opa
+
+templates:
+  config/bpm.yml.erb: config/bpm.yml
+
+packages:
+- opa
+
+properties:

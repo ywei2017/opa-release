@@ -1,0 +1,34 @@
+name: opa-example
+
+releases:
+- name: opa
+  version: latest
+- name: bpm
+  sha1: 5a03b988c725c6b5a1aed247c8c23c2bff9d421b
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=0.4.0
+  version: 0.4.0
+
+stemcells:
+- alias: trusty
+  os: ubuntu-trusty
+  version: "3541.12"
+
+instance_groups:
+- name: opa
+  instances: 1
+  networks:
+  - name: ((network_name))
+  azs: [((zone))]
+  jobs:
+  - name: bpm
+    release: bpm
+  - name: opa
+    release: opa
+  stemcell: trusty
+  vm_type: micro
+
+update:
+  canaries: 1
+  max_in_flight: 1
+  canary_watch_time: 10000-30000
+  update_watch_time: 10000-30000
