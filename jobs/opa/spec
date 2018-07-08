@@ -7,4 +7,5 @@ templates:
 packages:
 - opa
 
-properties:
+properties: {}
+
