@@ -1,5 +1,7 @@
 # opa-release
 
+[![CircleCI](https://circleci.com/gh/bstick12/opa-release.svg?style=svg)](https://circleci.com/gh/bstick12/opa-release)
+
 [Open Policy Agent](https://www.openpolicyagent.org/) (OPA) is an open source, general purpose policy engine that enables unified, context aware policy enforcement across the entire stack
 
 This release allows for the deployment of OPA using BOSH.
