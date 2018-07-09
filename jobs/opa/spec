@@ -7,5 +7,28 @@ templates:
 packages:
 - opa
 
-properties: {}
-
+properties:
+  addr:
+    description: Listening address for the server - `--addr`
+    default: ":8181"
+  authentication:
+    description: Authentication scheme - `--authentication`
+    default: "off"
+  authorization:
+    description: Authorization scheme - `--authorization`
+    default: "off"
+  format:
+    description: Shell output format - `--format`
+    default: "pretty"
+  log-format:
+    description: Log format - `--log-format`
+    default: "text"
+  log-level:
+    description: Log level - `--log-level`
+    default: "info"
+  max-errors:
+    description: The number of errors to allow before compilation fails early - `--max-errors`
+    default: 10
+  server-diagnostics-buffer-size:
+    description: The size of the server's diagnostics buffer
+    default: 10

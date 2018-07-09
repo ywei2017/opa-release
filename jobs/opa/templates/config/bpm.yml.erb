@@ -3,4 +3,12 @@ processes:
   executable: /var/vcap/packages/opa/opa
   args:
   - run
-  - -s
+  - --server
+  - --addr=<%= p('addr') %>
+  - --authentication=<%= p('authentication') %>
+  - --authorization=<%= p('authorization') %>
+  - --format=<%= p('format') %>
+  - --log-format=<%= p('log-format') %>
+  - --log-level=<%= p('log-level') %>
+  - --max-errors=<%= p('max-errors') %>
+  - --server-diagnostics-buffer-size=<%= p('server-diagnostics-buffer-size') %>
