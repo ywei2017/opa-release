@@ -10,6 +10,33 @@ describe 'opa job' do
   let(:release) { Bosh::Template::Test::ReleaseDir.new(release_dir) }
   let(:job) { release.job('opa') }
 
+  describe 'TLS files' do
+    let(:tls_crt) { job.template('config/tls.crt') }
+    let(:tls_key) { job.template('config/tls.key') }
+
+    it('has certificate') do
+      config = {
+        'tls' => {
+          'cert' => 'CERTIFICATE',
+          'private_key' => 'PRIVATE_KEY'
+        }
+      }
+      crt = tls_crt.render(config)
+      expect(crt.chomp).to eq("\nCERTIFICATE\n")
+    end
+
+    it('has private key') do
+      config = {
+        'tls' => {
+          'cert' => 'CERTIFICATE',
+          'private_key' => 'PRIVATE_KEY'
+        }
+      }
+      key = tls_key.render(config)
+      expect(key.chomp).to eq("\nPRIVATE_KEY\n")
+    end
+  end
+
   describe 'bpm.yml' do
     let(:template) { job.template('config/bpm.yml') }
 
@@ -62,6 +89,19 @@ describe 'opa job' do
       expect(args).to include('--log-level=error')
       expect(args).to include('--max-errors=25')
       expect(args).to include('--server-diagnostics-buffer-size=50')
+    end
+
+    it 'has configured TLS process args' do
+      config = {
+        'tls' => {}
+      }
+
+      bpm_yml = YAML.safe_load(template.render(config))
+      args = bpm_process(bpm_yml, 0)['args']
+      expect(args)
+        .to include('--tls-cert-file=/var/vcap/jobs/opa/config/tls.crt')
+      expect(args)
+        .to include('--tls-private-key-file=/var/vcap/jobs/opa/config/tls.key')
     end
   end
 end

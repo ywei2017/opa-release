@@ -12,3 +12,7 @@ processes:
   - --log-level=<%= p('log-level') %>
   - --max-errors=<%= p('max-errors') %>
   - --server-diagnostics-buffer-size=<%= p('server-diagnostics-buffer-size') %>
+<% if_p('tls') do |tls| %>
+  - --tls-cert-file=/var/vcap/jobs/opa/config/tls.crt
+  - --tls-private-key-file=/var/vcap/jobs/opa/config/tls.key
+<% end %>

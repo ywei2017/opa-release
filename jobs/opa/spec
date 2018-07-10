@@ -3,6 +3,8 @@ name: opa
 
 templates:
   config/bpm.yml.erb: config/bpm.yml
+  config/tls.crt.erb: config/tls.crt
+  config/tls.key.erb: config/tls.key
 
 packages:
 - opa
@@ -32,3 +34,7 @@ properties:
   server-diagnostics-buffer-size:
     description: The size of the server's diagnostics buffer
     default: 10
+  tls.cert:
+    description: TLS certificate
+  tls.private_key:
+    description: TLS private key
