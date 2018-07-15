@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-group :development, :test do
+group :test do
   gem 'bosh-template'
   gem 'rspec'
   gem 'rspec-its'
