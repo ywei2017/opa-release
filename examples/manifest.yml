@@ -4,14 +4,14 @@ releases:
 - name: opa
   version: latest
 - name: bpm
-  sha1: 5a03b988c725c6b5a1aed247c8c23c2bff9d421b
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=0.4.0
-  version: 0.4.0
+  sha1: 0cf53162bb246de6afb4c1eaf14becdb7865a217
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=0.8.0
+  version: 0.8.0
 
 stemcells:
 - alias: trusty
   os: ubuntu-trusty
-  version: "3541.12"
+  version: "3586.25"
 
 instance_groups:
 - name: opa
@@ -24,8 +24,34 @@ instance_groups:
     release: bpm
   - name: opa
     release: opa
+    properties:
+      addr: "0.0.0.0:8181"
+      authentication: "off"
+      authorization: "off"
+      format: "pretty"
+      log-format: "json"
+      log-level: "info"
+      max-errors: 10
+      server-diagnostics-buffer-size: 100
+      tls:
+        cert: ((tls_opa.certificate))
+        private_key: ((tls_opa.private_key))
   stemcell: trusty
   vm_type: micro
+
+variables:
+- name: opa_ca
+  type: certificate
+  options:
+    is_ca: true
+    common_name: ca
+
+- name: tls_opa
+  type: certificate
+  options:
+    ca: opa_ca
+    common_name: ((opa_common_name))
+    alternative_names: []
 
 update:
   canaries: 1

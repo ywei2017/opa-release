@@ -16,9 +16,9 @@ You need to provide the `network` and `az` that is specified in the cloud-config
 git clone git@github.com:bstick12/opa-release.git
 bosh create-release
 bosh upload-release
-bosh deploy -d opa-example examples/manifest.yml -v network_name=<BOSH NETWORK> -v zone=<BOSH ZONE>
+bosh deploy -d opa-example examples/manifest.yml -v network_name=concord-services-subnet -v zone=europe-west1-b -v opa_common_name=opa.example.com
 OPA_IP=$(bosh vms -d opa-example | awk '{print $4}')
-curl "http://${OPA_URL}:8181/"
+curl "https://${OPA_URL}:8181/" -k
 ```
 
 
