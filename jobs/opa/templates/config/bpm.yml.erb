@@ -4,6 +4,7 @@ processes:
   args:
   - run
   - --server
+  - --skip-version-check        #Important in an air-gapped environment
   - --addr=<%= p('addr') %>
   - --authentication=<%= p('authentication') %>
   - --authorization=<%= p('authorization') %>
@@ -11,8 +12,13 @@ processes:
   - --log-format=<%= p('log-format') %>
   - --log-level=<%= p('log-level') %>
   - --max-errors=<%= p('max-errors') %>
-  - --server-diagnostics-buffer-size=<%= p('server-diagnostics-buffer-size') %>
-<% if_p('tls') do |tls| %>
+<% if_p('tls.cert', 'tls.key') do |tls| %>
   - --tls-cert-file=/var/vcap/jobs/opa/config/tls.crt
   - --tls-private-key-file=/var/vcap/jobs/opa/config/tls.key
+<% end %>
+<% if_p('config-file') do |config| %>
+  - --config-file=/var/vcap/jobs/opa/config/config.yml
+<% end %>
+<% if_p('policy-file') do |policy| %>
+  - /var/vcap/jobs/opa/config/policy.rego
 <% end %>

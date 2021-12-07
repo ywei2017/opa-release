@@ -1,8 +1,6 @@
 ---
 final_name: opa
 blobstore:
-  provider: s3
+  provider: local
   options:
-    bucket_name: opa-release-blobs
-    region: europe-west3
-    host: storage.googleapis.com
+    blobstore_path: /tmp/test-blobs

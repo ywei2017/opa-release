@@ -2,9 +2,11 @@
 name: opa
 
 templates:
-  config/bpm.yml.erb: config/bpm.yml
-  config/tls.crt.erb: config/tls.crt
-  config/tls.key.erb: config/tls.key
+  config/bpm.yml.erb:     config/bpm.yml
+  config/tls.crt.erb:     config/tls.crt
+  config/tls.key.erb:     config/tls.key
+  config/config.yml.erb:  config/config.yml
+  config/policy.rego.erb: config/policy.rego
 
 packages:
 - opa
@@ -19,6 +21,12 @@ properties:
   authorization:
     description: Authorization scheme - `--authorization`
     default: "off"
+  config-file:
+    description: Text block of the server config, as specified in commandline for `-c`
+    default: ""
+  policy-file:
+    description: Text block of the rego policy file
+    default: ""
   format:
     description: Shell output format - `--format`
     default: "pretty"
@@ -30,9 +38,6 @@ properties:
     default: "info"
   max-errors:
     description: The number of errors to allow before compilation fails early - `--max-errors`
-    default: 10
-  server-diagnostics-buffer-size:
-    description: The size of the server's diagnostics buffer
     default: 10
   tls.cert:
     description: TLS certificate
